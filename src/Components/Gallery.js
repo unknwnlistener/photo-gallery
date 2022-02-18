@@ -1,26 +1,10 @@
-import React, { useState } from "react";
-import { ref, listAll, getDownloadURL, deleteObject } from "firebase/storage";
+import React from "react";
+import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../config";
 
-export const Gallery = () => {
-  const [allImages, setAllImages] = useState([]);
-  const listRef = ref(storage);
+import "../styles/gallery.css";
 
-  const getFromFirebase = () => {
-    listAll(listRef)
-      .then((res) => {
-        setAllImages([]);
-        res.items.forEach((itemRef) => {
-          getDownloadURL(itemRef).then((url) => {
-            setAllImages((allImages) => [...allImages, url]);
-          });
-        });
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
+export const Gallery = ({ allImages, setAllImages }) => {
   const deleteFromFirebase = (imageUrl) => {
     let imageRef = ref(storage, imageUrl);
     deleteObject(imageRef)
@@ -35,10 +19,7 @@ export const Gallery = () => {
 
   return (
     <div className="gallery">
-      <button onClick={() => getFromFirebase()}>
-        Get Images from Firebase
-      </button>
-      <div id="photos">
+      <div className="gallery__container" id="photos">
         {allImages &&
           allImages.map((image) => {
             return (

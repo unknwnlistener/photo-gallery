@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { storage } from "../config.js";
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, listAll, getDownloadURL, uploadBytes } from "firebase/storage";
 
-export const Upload = () => {
+export const Upload = ({ allImages, setAllImages }) => {
   const [image, setImage] = useState(null);
 
   const onImageChange = (e) => {
@@ -34,15 +34,35 @@ export const Upload = () => {
     }
   };
 
+  const getFromFirebase = () => {
+    let listRef = ref(storage);
+    listAll(listRef)
+      .then((res) => {
+        setAllImages([]);
+        res.items.forEach((itemRef) => {
+          getDownloadURL(itemRef).then((url) => {
+            setAllImages((allImages) => [...allImages, url]);
+          });
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   return (
     <div className="upload__section">
-      <header className="App-header">Photo Gallery</header>
+      <header className="App__header">Photo Gallery</header>
       <input
+        id="upload"
         type="file"
         accept="image/x-png,image/jpeg"
         onChange={(e) => onImageChange(e)}
       />
       <button onClick={() => uploadToFirebase()}>Upload to Firebase</button>
+      <button onClick={() => getFromFirebase()}>
+        Get Images from Firebase
+      </button>
     </div>
   );
 };

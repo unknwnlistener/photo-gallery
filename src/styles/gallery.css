@@ -1,0 +1,8 @@
+.gallery__container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.image img {
+  max-width: 200px;
+}
