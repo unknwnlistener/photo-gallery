@@ -1,6 +1,7 @@
 import React from "react";
 import { ref, deleteObject } from "firebase/storage";
 import { storage } from "../config";
+import { ImageBlock } from "./ImageBlock";
 
 import "../styles/gallery.css";
 
@@ -24,10 +25,7 @@ export const Gallery = ({ allImages, setAllImages }) => {
           allImages.map((image) => {
             return (
               <div key={image} className="image">
-                <img src={image} alt="" />
-                <button onClick={() => deleteFromFirebase(image)}>
-                  Delete
-                </button>
+                <ImageBlock image={image} deleteFn={deleteFromFirebase} />
               </div>
             );
           })}

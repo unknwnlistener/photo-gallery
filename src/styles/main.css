@@ -1,6 +1,7 @@
 :root {
   --bg-color: hsl(220, 13%, 18%);
   --font-color: hsl(0, 0%, 100%);
+  --border-light: 2px solid hsl(0, 0%, 70%);
 }
 
 .App {
@@ -14,17 +15,29 @@
   font-size: 1.25rem;
 }
 
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 header {
   font-size: min(40px, 2em);
+  margin: 1em 0 1.2em 0;
+}
+
+.controls > * {
+  margin: 0.25rem;
 }
 
 button {
   padding: 5px;
   background-color: hsl(220, 34%, 23%);
-  border: 2px solid hsl(0, 0%, 70%);
+  border: var(--border-light);
   color: var(--font-color);
   font-size: inherit;
-  margin: 5px;
 }
 
 button:hover {
@@ -32,11 +45,12 @@ button:hover {
 }
 
 input[type="file"] {
-  height: 2rem;
   font-size: 1em;
+  text-align: center;
+  border: var(--border-light);
 }
 
-.upload__section {
+.controls {
   display: flex;
   flex-direction: column;
   align-items: center;

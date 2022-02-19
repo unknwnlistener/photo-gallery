@@ -51,18 +51,20 @@ export const Upload = ({ allImages, setAllImages }) => {
   };
 
   return (
-    <div className="upload__section">
+    <div className="main">
       <header className="App__header">Photo Gallery</header>
-      <input
-        id="upload"
-        type="file"
-        accept="image/x-png,image/jpeg"
-        onChange={(e) => onImageChange(e)}
-      />
-      <button onClick={() => uploadToFirebase()}>Upload to Firebase</button>
-      <button onClick={() => getFromFirebase()}>
-        Get Images from Firebase
-      </button>
+      <div className="controls">
+        <input
+          id="upload"
+          type="file"
+          accept="image/x-png,image/jpeg"
+          onChange={(e) => onImageChange(e)}
+        />
+        <button onClick={() => uploadToFirebase()}>Upload to Firebase</button>
+        <button onClick={() => getFromFirebase()}>
+          Get Images from Firebase
+        </button>
+      </div>
     </div>
   );
 };
